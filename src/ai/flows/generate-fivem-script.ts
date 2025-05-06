@@ -43,7 +43,7 @@ const prompt = ai.definePrompt({
   -- fxmanifest.lua --
   fx_version 'cerulean'
   game 'gta5'
-  author 'YourName'
+  author 'Jay Mods'
   description 'Description of the script'
   version '1.0.0'
 
