@@ -1,10 +1,10 @@
 import type {Metadata} from 'next';
-import { Inter } from 'next/font/google'; // Updated import
+import { Inter } from 'next/font/google';
 import './globals.css';
-import { Toaster } from "@/components/ui/toaster"; // Added Toaster for notifications
+import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({ // Use Inter
-  variable: '--font-inter', // Updated CSS variable name
+const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
 });
 
@@ -19,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}> {/* Apply font variable to html tag */}
-      <body className="antialiased font-sans"> {/* Use font-sans Tailwind utility */}
+    <html lang="en" className={inter.variable}>
+      <body className="antialiased font-sans">
         {children}
         <Toaster />
       </body>
