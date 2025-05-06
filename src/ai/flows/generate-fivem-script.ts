@@ -18,7 +18,7 @@ const GenerateFiveMScriptInputSchema = z.object({
 export type GenerateFiveMScriptInput = z.infer<typeof GenerateFiveMScriptInputSchema>;
 
 const GenerateFiveMScriptOutputSchema = z.object({
-  code: z.string().describe('The generated FiveM script code.'),
+  code: z.string().describe('The generated FiveM script code, including fxmanifest.lua and the Lua script file(s).'),
 });
 export type GenerateFiveMScriptOutput = z.infer<typeof GenerateFiveMScriptOutputSchema>;
 
@@ -32,9 +32,39 @@ const prompt = ai.definePrompt({
   output: {schema: GenerateFiveMScriptOutputSchema},
   prompt: `You are an expert FiveM script developer.
 
-  Generate the FiveM script based on the following prompt:
+  Generate a complete FiveM script, including the fxmanifest.lua file, based on the following prompt. Consider the specified framework if mentioned (e.g., ESX, Qbox, QBCORE). If no framework is specified, assume it's a standalone script (no specific framework).
 
   Prompt: {{{prompt}}}
+
+  Ensure the script is well-structured, efficient, and includes necessary comments. The response should be a single string containing both the fxmanifest.lua content and the .lua script content.
+  
+  The fxmanifest.lua should be clearly delimited from the Lua script code, for example:
+
+  -- fxmanifest.lua --
+  fx_version 'cerulean'
+  game 'gta5'
+  author 'YourName'
+  description 'Description of the script'
+  version '1.0.0'
+
+  client_scripts {
+    'client.lua'
+  }
+
+  server_scripts {
+    'server.lua'
+  }
+  -- end fxmanifest.lua --
+
+  -- client.lua -- 
+  -- Client-side Lua code here
+  -- end client.lua --
+
+  -- server.lua --
+  -- Server-side Lua code here
+  -- end server.lua --
+
+  (Ensure the generated code is relevant to the user's prompt and not just this example structure.)
   `,
 });
 
@@ -49,3 +79,4 @@ const generateFiveMScriptFlow = ai.defineFlow(
     return output!;
   }
 );
+
